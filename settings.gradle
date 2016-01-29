@@ -1,1 +1,1 @@
-include ':slidingmenu'
+include ':slidingmenu', ':recycleview'
