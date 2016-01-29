@@ -2,6 +2,7 @@ package com.itheima.recycleview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ListView;
 
@@ -36,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
       //  MyAdapter myAdapter = new MyAdapter(mList);
      //   mListView.setAdapter(myAdapter);
 
-        new RecyAdapter(mList);
+        RecyAdapter recyAdapter = new RecyAdapter(mList);
+
+        //recyclyView布局与数据分离,可以很好的管理UI布局
+        //实现各种效果
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true));
+
+        mRecyclerView.setAdapter(recyAdapter);
     }
 }

@@ -15,17 +15,23 @@ public class RecyAdapter extends RecyclerView.Adapter {
     List<String> mList;
 
     public RecyAdapter(List<String> list) {
+
         mList = list;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View view = View.inflate(parent.getContext(), R.layout.item, null);
+
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder != null) {
 
+            ((ViewHolder) holder).tv.setText(mList.get(position));
+        }
     }
 
     @Override
@@ -38,6 +44,7 @@ public class RecyAdapter extends RecyclerView.Adapter {
 
         public ViewHolder(View itemView) {
             super(itemView);
+            tv = (TextView) itemView.findViewById(R.id.item_tv);
         }
     }
 
