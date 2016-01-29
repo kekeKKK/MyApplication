@@ -10,9 +10,10 @@ import java.util.List;
 /**
  * Created by LiuKe on 2016/1/29.
  */
-public class RecyAdapter extends RecyclerView.Adapter{
+public class RecyAdapter extends RecyclerView.Adapter {
 
     List<String> mList;
+
     public RecyAdapter(List<String> list) {
         mList = list;
     }
@@ -32,8 +33,9 @@ public class RecyAdapter extends RecyclerView.Adapter{
         return mList.size();
     }
 
-    class ViewHolder extends  RecyclerView.ViewHolder{
-        public TextView tv ;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView tv;
+
         public ViewHolder(View itemView) {
             super(itemView);
         }
