@@ -1,0 +1,105 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "com.itheima.slidingmenu"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true //dex突破65535限制
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+
+    }
+
+    lintOptions {
+        disable 'MissingTranslation', 'ExtraTranslation'
+        abortOnError false
+    }
+
+    signingConfigs {
+        // /home/monkey/Projects/AndroidStudioProjects/debug.jks是签名文件所在全路径
+
+        // debug时打包用的签名
+        debug {
+            keyAlias 'debug'
+            keyPassword '123456'
+            storeFile file('E:/DevelopTools/CodingTools/AndroidStudio/AndroidStudioProjects/MyApplication/key/debug.jks')
+            storePassword '123456'
+        }
+
+        // release时打包用的签名
+        release {
+            keyAlias 'release'
+            keyPassword '123456'
+            storeFile file('E:/DevelopTools/CodingTools/AndroidStudio/AndroidStudioProjects/MyApplication/key/release.jks')
+            storePassword '123456'
+        }
+    }
+
+    buildTypes {
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
+            versionNameSuffix "-debug"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+        }
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            minifyEnabled true
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为appname_v1.0_2015-09-15_09-57-58_wandoujia.apk
+                        // 下面的appname改为你自己的app name
+                        def fileName = "slidingMenu_v_${variant.productFlavors[0].name}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
+        }
+    }
+
+    productFlavors {
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        qihoo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qihoo"]
+        }
+        baidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+        }
+        wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        }
+        qq {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qq"]
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+}
