@@ -80,6 +80,7 @@ public class SlidingView extends ViewGroup {
         mLeftMax = -mMenuChild.getMeasuredWidth();
         mRightMax = 0;
 
+
     }
 
     @Override
